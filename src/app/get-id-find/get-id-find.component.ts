@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-get-id-find',
@@ -6,10 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./get-id-find.component.css']
 })
 export class GetIdFindComponent implements OnInit {
-
-  constructor() { }
+  id:number;
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
-
+  onSubmit(){
+    this.router.navigate(['displayByID',this.id]);
+  }
 }

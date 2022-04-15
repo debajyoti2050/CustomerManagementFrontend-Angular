@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {CustomerService} from "../customer.service";
+import {ActivatedRoute} from "@angular/router";
+import {Customer} from "../customer";
 
 @Component({
   selector: 'app-display-by-email',
@@ -6,10 +9,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./display-by-email.component.css']
 })
 export class DisplayByEmailComponent implements OnInit {
-
-  constructor() { }
+  email: string;
+  customer: Customer = new Customer();
+  constructor(private customerService: CustomerService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.email = this.route.snapshot.params['email'];
+    this.customerService.getCustomerByEmail(this.email).subscribe(data=>{
+        this.customer=data;
+      },
+      error => console.log(error)
+    );
   }
 
 }
